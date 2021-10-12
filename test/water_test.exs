@@ -10,4 +10,10 @@ defmodule WaterTest do
     assert length(a) && length(b) == 4
     assert length(c) && length(d) == 0
   end
+  
+  test "transfer drop from first vial and drop into last (empty) vial" do
+    puzzle = ['BBAA', 'AABB', [], []]
+             |> Water.transfer(0, 3)
+    assert puzzle == ['BB', 'AABB', [], 'AA']
+  end
 end

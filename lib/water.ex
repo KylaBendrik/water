@@ -6,10 +6,24 @@ defmodule Water do
   It starts all mixed up, and you have to sort them out.
   
   ABCD BBCC AADD DCBA ____ ____ -> AAAA BBBB CCCC DDDD ____ ____
+  Vials are listed as bottom to top:
+  
+  ABCD
+    ==
+    D
+    C
+    B
+    A
   """
 
  
   def new(num_colors \\ 2, vial_size \\ 4) do
     Water.Puzzle.build_puzzle(num_colors, vial_size, [])
+  end
+  
+  def transfer(puzzle, from, to) do
+    IO.puts(from)
+    IO.puts(to)
+    ['BB', 'AABB', [], 'AA']
   end
 end
