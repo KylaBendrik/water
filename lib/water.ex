@@ -19,9 +19,19 @@ defmodule Water do
  
   def new(num_colors \\ 2, vial_size \\ 4) do
     Water.Puzzle.new(num_colors, vial_size)
+    run(Water.Puzzle.new(num_colors, vial_size))
   end
   
   def transfer(puzzle, from, to) do
     Water.Puzzle.transfer(puzzle, from, to)
   end
+  
+  def run(puzzle) do
+    IO.inspect(puzzle)
+    IO.puts("ready to transfer!")
+    from = String.to_integer(String.trim(IO.gets("From: ")))
+    to = String.to_integer(String.trim(IO.gets("To: ")))
+    Water.run(transfer(puzzle, from, to))
+  end
+  
 end

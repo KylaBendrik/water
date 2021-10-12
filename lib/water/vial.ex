@@ -9,9 +9,7 @@ defmodule Water.Vial do
     if check_color == {:ok, grabbed_drops, vial} do
       filled = vial ++ grabbed_drops
       cond do 
-        length(filled) == vial_size ->
-          IO.puts("fill successful")
-          IO.puts(vial ++ grabbed_drops)
+        length(filled) <= vial_size ->
           {:ok, vial ++ grabbed_drops}
         length(filled) > vial_size ->
           [filled_vial, extra] = Enum.chunk_every(filled, vial_size)
@@ -22,9 +20,11 @@ defmodule Water.Vial do
     end  
   end
   
-  defp check_colors(grabbed_drops, vial) do   
+  defp check_colors(grabbed_drops, vial) do 
     cond do
       List.last(grabbed_drops) == List.last(vial) ->
+        {:ok, grabbed_drops, vial}
+      vial == []  ->
         {:ok, grabbed_drops, vial}
       true ->
         {:wrong_color, vial, put_back: grabbed_drops}

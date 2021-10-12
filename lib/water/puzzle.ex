@@ -26,10 +26,8 @@ defmodule Water.Puzzle do
     case result do
       {:ok, filled} ->
         changed_vials = vials
-          |> List.update_at(from_i, new_from)
-          |> List.update_at(to_i, filled)
-        IO.puts("changed_vials")
-        IO.inspect(changed_vials)
+          |> List.replace_at(from_i, new_from)
+          |> List.replace_at(to_i, filled)
         %Water.Puzzle{vials: changed_vials, vial_size: puzzle.vial_size}
       _ ->
         IO.puts("result is")

@@ -15,4 +15,10 @@ defmodule PuzzleTest do
     new_puzzle =  Water.transfer(puzzle, 0, 3)
     assert new_puzzle.vials == ['BB', 'AABB', [], 'AA']
   end
+  
+  test "transfer fails if from vial doesn't match to" do
+    puzzle = %Water.Puzzle{vials: ['ABBA', 'AA', 'BB', []], vial_size: 4}
+    new_puzzle =  Water.transfer(puzzle, 0, 2)
+    assert new_puzzle.vials == ['ABBA', 'AA', 'BB', []]
+  end
 end
