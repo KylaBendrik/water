@@ -40,4 +40,12 @@ defmodule VialTest do
     
     assert Water.Vial.fill(grabbed, vial, 4) == {:wrong_color, 'B', put_back: 'A'}
   end
+  
+  test "check to see if a vial is full and complete" do
+    vial_size = 4
+    assert Water.Vial.check_complete('AAAA', vial_size)
+    assert Water.Vial.check_complete('BBBB', vial_size)
+    refute Water.Vial.check_complete('AA', vial_size)
+    refute Water.Vial.check_complete('ABBA', vial_size)
+  end
 end

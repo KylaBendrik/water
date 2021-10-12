@@ -54,9 +54,11 @@ defmodule Water.Puzzle do
   end
   
   def check_for_win(puzzle) do
+    vials = puzzle.vials
+    vial_size = puzzle.vial_size
+    
     {false, puzzle}
   end
-  
   
   
   def find_drops(num_colors, vial_size) do

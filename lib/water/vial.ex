@@ -31,6 +31,29 @@ defmodule Water.Vial do
     end
   end
   
+  def check_complete(vial, vial_size) do
+    [head| rest] = vial
+    if run_check(head, head, rest) && length(vial) == vial_size do
+      true
+    else
+      false
+    end
+  end
+  
+  defp run_check(_to_check, _against, []) do
+    true
+  end
+  defp run_check(to_check, against, rest) do
+
+      if to_check == against do
+        [new_check | left] = rest
+        run_check(new_check, against, left)
+      else
+        false
+      end
+
+  end
+  
   def grab(vial) do
     # returns all the drops from the top that match
     {last, rest} = List.pop_at(vial, length(vial) - 1)
