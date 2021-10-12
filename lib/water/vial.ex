@@ -31,16 +31,15 @@ defmodule Water.Vial do
     end
   end
   
+  def check_complete([], _), do: true
+  
   def check_complete(vial, vial_size) do
-    [head| rest] = vial
+    [head | rest] = vial
     # IO.puts("check vial")
     # IO.inspect(vial)
     cond do
       run_check(head, head, rest) && length(vial) == vial_size ->
         # IO.puts("true, done")
-        true
-      length(vial) == 0 ->
-        # IO.puts("true, empty")
         true
       true ->
         # IO.puts("false")
