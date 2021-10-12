@@ -53,6 +53,10 @@ defmodule Water.Puzzle do
     build_puzzle(drops -- new_vial, num_colors - 1, vial_size, [new_vial | vials])
   end
   
+  def check_for_win(puzzle) do
+    {false, puzzle}
+  end
+  
   
   
   def find_drops(num_colors, vial_size) do

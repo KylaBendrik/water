@@ -21,4 +21,9 @@ defmodule PuzzleTest do
     new_puzzle =  Water.transfer(puzzle, 0, 2)
     assert new_puzzle.vials == ['ABBA', 'AA', 'BB', []]
   end
+  
+  test "check for win conditions" do
+    winning_puzzle1 = %Water.Puzzle{vials: ['AAAA', [], []], vial_size: 4}
+    assert Water.Puzzle.check_for_win(winning_puzzle1) == {true, winning_puzzle1}
+  end
 end

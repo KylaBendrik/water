@@ -31,7 +31,33 @@ defmodule Water do
     IO.puts("ready to transfer!")
     from = String.to_integer(String.trim(IO.gets("From: ")))
     to = String.to_integer(String.trim(IO.gets("To: ")))
-    Water.run(transfer(puzzle, from, to))
+    
+    check_legal_transfer(puzzle, from, to)
+    |> transfer(from, to)
+    |> Water.check_for_win
+    |> Water.run()
+  end
+  
+  def check_legal_transfer(puzzle, from, to)do
+    cond do
+      from < length(puzzle.vials) && to < length(puzzle.vials) ->
+        IO.puts("Good input")
+        puzzle
+      true ->
+        IO.puts("Try again! (bad input)")
+        Water.run(puzzle)
+    end
+  end
+  
+  def check_for_win(puzzle) do
+    case Water.Puzzle.check_for_win(puzzle) do
+      {true, puzzle} -> 
+        IO.puts("You win!")
+        IO.inspect(puzzle)
+        System.halt(0)
+      {false, puzzle} ->
+        puzzle
+    end
   end
   
 end
