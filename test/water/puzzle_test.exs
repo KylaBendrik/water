@@ -28,4 +28,18 @@ defmodule PuzzleTest do
     assert Water.Puzzle.check_for_win(winning_puzzle1) == {true, winning_puzzle1}
     #assert Water.Puzzle.check_for_win(not_winning_puzzle1)  == {false, not_winning_puzzle1}
   end
+  
+  test "find current moves made" do
+    puzzle = %Water.Puzzle{vials: ['AAAA', [], []], vial_size: 4, moves: 2}
+    
+    assert Water.Puzzle.moves(puzzle) == 2
+  end
+  
+  test "moves increment after transfer" do
+    puzzle = %Water.Puzzle{vials: ['BBAA', 'AABB', [], []], vial_size: 4, moves: 0}
+    assert Water.Puzzle.moves(puzzle) == 0
+    
+    puzzle = Water.transfer(puzzle, 0, 3)
+    assert Water.Puzzle.moves(puzzle) == 1
+  end
 end

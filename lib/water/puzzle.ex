@@ -1,5 +1,5 @@
 defmodule Water.Puzzle do
-  defstruct vials: [], vial_size: 4
+  defstruct vials: [], vial_size: 4, moves: 0
   @moduledoc """
   Water is a simple stacking puzzle. 
   You have a number of vials (nV). You have a number of colors (nV - 2)
@@ -28,13 +28,14 @@ defmodule Water.Puzzle do
         changed_vials = vials
           |> List.replace_at(from_i, new_from)
           |> List.replace_at(to_i, filled)
-        %Water.Puzzle{vials: changed_vials, vial_size: puzzle.vial_size}
+        %Water.Puzzle{vials: changed_vials, vial_size: puzzle.vial_size, moves: puzzle.moves + 1}
       _ ->
-          puzzle
+        puzzle
     end
-    
     # returns a new puzzle with the updated vials
   end
+  
+  def moves(puzzle), do: puzzle.moves
   
   
   def build_puzzle(num_colors, vial_size, vials) do
