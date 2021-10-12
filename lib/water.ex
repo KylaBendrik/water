@@ -40,7 +40,7 @@ defmodule Water do
   
   def check_legal_transfer(puzzle, from, to)do
     cond do
-      from < length(puzzle.vials) && to < length(puzzle.vials) ->
+      from < length(puzzle.vials) && to < length(puzzle.vials) && from >= 0 && to >= 0 ->
         IO.puts("Good input")
         puzzle
       true ->
