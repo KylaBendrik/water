@@ -22,10 +22,10 @@ defmodule PuzzleTest do
     assert new_puzzle.vials == ['ABBA', 'AA', 'BB', []]
   end
   
-  # test "check for win conditions" do
-  #   winning_puzzle1 = %Water.Puzzle{vials: ['AAAA', [], []], vial_size: 4}
-  #   not_winning_puzzle1 = %Water.Puzzle{vials: ['AA', 'AA', []], vial_size: 4}
-  #   assert Water.Puzzle.check_for_win(winning_puzzle1) == {true, winning_puzzle1}
-  #   assert Water.Puzzle.check_for_win(not_winning_puzzle1)  == {false, not_winning_puzzle1}
-  # end
+  test "check for win conditions" do
+    winning_puzzle1 = %Water.Puzzle{vials: ['AAAA', [], []], vial_size: 4}
+    #not_winning_puzzle1 = %Water.Puzzle{vials: ['AA', 'AA', []], vial_size: 4}
+    assert Water.Puzzle.check_for_win(winning_puzzle1) == {true, winning_puzzle1}
+    #assert Water.Puzzle.check_for_win(not_winning_puzzle1)  == {false, not_winning_puzzle1}
+  end
 end

@@ -30,8 +30,6 @@ defmodule Water.Puzzle do
           |> List.replace_at(to_i, filled)
         %Water.Puzzle{vials: changed_vials, vial_size: puzzle.vial_size}
       _ ->
-        IO.puts("result is")
-        IO.inspect(result)
           puzzle
     end
     
@@ -55,11 +53,13 @@ defmodule Water.Puzzle do
   
   def check_for_win(puzzle) do
     vials = puzzle.vials
+    # IO.inspect(vials)
     vial_size = puzzle.vial_size
-    
-    {false, puzzle}
+    result = Enum.reduce(vials, true, fn x, acc -> Water.Vial.check_complete(x, vial_size) && acc end)
+    # IO.puts("result")
+    # IO.inspect(result)
+    {result, puzzle}
   end
-  
   
   def find_drops(num_colors, vial_size) do
     num_colors
