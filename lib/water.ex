@@ -18,12 +18,10 @@ defmodule Water do
 
  
   def new(num_colors \\ 2, vial_size \\ 4) do
-    Water.Puzzle.build_puzzle(num_colors, vial_size, [])
+    Water.Puzzle.new(num_colors, vial_size)
   end
   
   def transfer(puzzle, from, to) do
-    IO.puts(from)
-    IO.puts(to)
-    ['BB', 'AABB', [], 'AA']
+    Water.Puzzle.transfer(puzzle, from, to)
   end
 end

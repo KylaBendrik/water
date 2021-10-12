@@ -1,4 +1,5 @@
 defmodule Water.Puzzle do
+  defstruct vials: [], vial_size: 4
   @moduledoc """
   Water is a simple stacking puzzle. 
   You have a number of vials (nV). You have a number of colors (nV - 2)
@@ -7,6 +8,38 @@ defmodule Water.Puzzle do
   
   ABCD BBCC AADD DCBA ____ ____ -> AAAA BBBB CCCC DDDD ____ ____
   """
+  def new(num_colors, vial_size) do
+    %Water.Puzzle{
+      vials: Water.Puzzle.build_puzzle(num_colors, vial_size, []),
+      vial_size: vial_size}
+  end
+  def transfer(puzzle, from_i, to_i) do
+    vials = puzzle.vials
+    from = Enum.at(vials, from_i)
+    to = Enum.at(vials, to_i)
+    
+    {grabbed, new_from} = Water.Vial.grab(from)
+    
+    result = grabbed
+      |> Water.Vial.fill(to, puzzle.vial_size)
+      
+    case result do
+      {:ok, filled} ->
+        changed_vials = vials
+          |> List.update_at(from_i, new_from)
+          |> List.update_at(to_i, filled)
+        IO.puts("changed_vials")
+        IO.inspect(changed_vials)
+        %Water.Puzzle{vials: changed_vials, vial_size: puzzle.vial_size}
+      _ ->
+        IO.puts("result is")
+        IO.inspect(result)
+          puzzle
+    end
+    
+    # returns a new puzzle with the updated vials
+  end
+  
   
   def build_puzzle(num_colors, vial_size, vials) do
     build_puzzle(Water.Puzzle.find_drops(num_colors, vial_size), num_colors, vial_size, vials)
@@ -21,6 +54,8 @@ defmodule Water.Puzzle do
     new_vial = Water.Vial.new(drops, vial_size)
     build_puzzle(drops -- new_vial, num_colors - 1, vial_size, [new_vial | vials])
   end
+  
+  
   
   def find_drops(num_colors, vial_size) do
     num_colors
@@ -42,5 +77,13 @@ defmodule Water.Puzzle do
   
   defp do_find_drops(num_colors, drops) do
     do_find_drops(num_colors - 1, [64 + num_colors | drops])
+  end
+  
+ 
+end
+
+defimpl String.Chars, for: Water.Puzzle do
+  def to_string(puzzle) do
+    IO.inspect(puzzle)
   end
 end

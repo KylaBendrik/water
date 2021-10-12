@@ -10,6 +10,8 @@ defmodule Water.Vial do
       filled = vial ++ grabbed_drops
       cond do 
         length(filled) == vial_size ->
+          IO.puts("fill successful")
+          IO.puts(vial ++ grabbed_drops)
           {:ok, vial ++ grabbed_drops}
         length(filled) > vial_size ->
           [filled_vial, extra] = Enum.chunk_every(filled, vial_size)
@@ -42,7 +44,7 @@ defmodule Water.Vial do
       next_drop == color ->
         grab_last_if_matching(new_vial, color, listify(result) ++ listify(next_drop))
       true -> 
-        listify(result)
+        {listify(result), listify(vial)}
     end
   end
   

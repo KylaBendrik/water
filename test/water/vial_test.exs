@@ -5,7 +5,7 @@ defmodule VialTest do
   test "grab the last drop" do
     vial = 'AAAB'
     
-    assert Water.Vial.grab(vial) == 'B'
+    assert Water.Vial.grab(vial) == {'B', 'AAA'}
   end
 
   test "grab all the drops of matching colors" do
@@ -14,10 +14,10 @@ defmodule VialTest do
     four_drops = 'BBBB'
     complicated_two_drops = 'ABABBAA'
     
-    assert Water.Vial.grab(two_drops) == 'BB'
-    assert Water.Vial.grab(three_drops) == 'BBB'
-    assert Water.Vial.grab(four_drops) == 'BBBB'
-    assert Water.Vial.grab(complicated_two_drops) == 'AA'
+    assert Water.Vial.grab(two_drops) == {'BB', 'AA'}
+    assert Water.Vial.grab(three_drops) == {'BBB', 'A'}
+    assert Water.Vial.grab(four_drops) == {'BBBB', ''}
+    assert Water.Vial.grab(complicated_two_drops) == {'AA', 'ABABB'}
   end
   
   test "fill grabbed drops into vial (simple)" do
