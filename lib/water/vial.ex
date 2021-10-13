@@ -34,36 +34,9 @@ defmodule Water.Vial do
   def check_complete([], _), do: true
   
   def check_complete(vial, vial_size) do
-    [head | rest] = vial
-    # IO.puts("check vial")
-    # IO.inspect(vial)
-    cond do
-      run_check(head, head, rest) && length(vial) == vial_size ->
-        # IO.puts("true, done")
-        true
-      true ->
-        # IO.puts("false")
-        false
-    end
+    [head | _rest] = vial
     
-  end
-  
-  defp run_check(_to_check, _against, []) do
-    # IO.puts("done with run_check")
-    true
-  end
-  defp run_check(to_check, against, rest) do
-    # IO.puts("check")
-    # IO.puts(to_check)
-    # IO.puts("against")
-    # IO.puts(against)
-      if to_check == against do
-        [new_check | left] = rest
-        run_check(new_check, against, left)
-      else
-        false
-      end
-
+    Enum.all?(vial, fn color -> color == head end) && length(vial) == vial_size
   end
   
   def grab(vial) do
@@ -77,17 +50,11 @@ defmodule Water.Vial do
     
     cond do
       next_drop == color ->
-        grab_last_if_matching(new_vial, color, listify(result) ++ listify(next_drop))
+        grab_last_if_matching(new_vial, color, List.wrap(result) ++ List.wrap(next_drop))
       true -> 
-        {listify(result), listify(vial)}
+        {List.wrap(result), List.wrap(vial)}
     end
   end
   
-  defp listify(item) do
-    if is_list(item) do
-      item
-    else
-      [item]
-    end
-  end
+
 end
