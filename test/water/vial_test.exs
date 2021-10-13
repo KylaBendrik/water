@@ -28,10 +28,10 @@ defmodule VialTest do
   end
   
   test "fill grabbed drops into vial (not enough space)" do
-    grabbed= 'AA'
-    vial = 'AAA'
+    grabbed = 'AA'
+    to = 'BAA'
     
-    assert Water.Vial.fill(grabbed, vial, 4) == {:not_enough_space, 'AAAA', put_back: 'A'}
+    assert Water.Vial.fill(grabbed, to, 4) == {:not_enough_space, 'BAAA', put_back: 'A'}
   end
   
   test "fill doesn't put the wrong color in the vial" do

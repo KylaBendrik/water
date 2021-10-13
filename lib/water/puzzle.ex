@@ -29,6 +29,11 @@ defmodule Water.Puzzle do
           |> List.replace_at(from_i, new_from)
           |> List.replace_at(to_i, filled)
         %Water.Puzzle{vials: changed_vials, vial_size: puzzle.vial_size, moves: puzzle.moves + 1}
+      {:not_enough_space, filled, put_back: extra} ->
+        changed_vials = vials
+          |> List.replace_at(to_i, filled)
+          |> List.replace_at(from_i, new_from ++ extra)
+        %Water.Puzzle{vials: changed_vials, vial_size: puzzle.vial_size, moves: puzzle.moves + 1}
       _ ->
         puzzle
     end

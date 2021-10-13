@@ -17,9 +17,17 @@ defmodule PuzzleTest do
   end
   
   test "transfer fails if from vial doesn't match to" do
-    puzzle = %Water.Puzzle{vials: ['ABBA', 'AA', 'BB', []], vial_size: 4}
+    puzzle = %Water.Puzzle{vials: ['ABBA', 'AA', 'BB', []], vial_size: 4, moves: 3}
     new_puzzle =  Water.transfer(puzzle, 0, 2)
     assert new_puzzle.vials == ['ABBA', 'AA', 'BB', []]
+    assert new_puzzle.moves == 3
+  end
+  
+  test "transfers only part of the vial if there isn't room" do
+    puzzle = %Water.Puzzle{vials: ['AABB', 'AAB', 'B', []], vial_size: 4, moves: 3}
+    new_puzzle = Water.transfer(puzzle, 0, 1)
+    assert new_puzzle.vials == ['AAB', 'AABB', 'B', []]
+    assert new_puzzle.moves == 4
   end
   
   test "check for win conditions" do
