@@ -89,7 +89,6 @@ defmodule Water.Puzzle do
     do_find_drops(num_colors - 1, [64 + num_colors | drops])
   end
   
- 
 end
 
 defimpl String.Chars, for: Water.Puzzle do

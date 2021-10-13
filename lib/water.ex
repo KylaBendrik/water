@@ -32,19 +32,41 @@ defmodule Water do
     from = String.to_integer(String.trim(IO.gets("From: ")))
     to = String.to_integer(String.trim(IO.gets("To: ")))
     
-    check_legal_transfer(puzzle, from, to)
-    |> transfer(from, to)
-    |> Water.check_for_win
-    |> Water.run()
+    case check_legal_transfer(puzzle, from, to) do
+      {:error, message} ->
+        IO.puts(message)
+        
+        puzzle
+        |> Water.run()
+      {:ok} ->
+        puzzle 
+        |> transfer(from, to)
+        |> Water.check_for_win
+        |> Water.run()
+    end
+    
+    
   end
   
   def check_legal_transfer(puzzle, from, to)do
+    from_small_enough? = from < length(puzzle.vials)
+    to_small_enough? = to < length(puzzle.vials)
+    from_big_enough? = from >= 0
+    to_big_enough? = to >= 0
+    
     cond do
-      from < length(puzzle.vials) && to < length(puzzle.vials) && from >= 0 && to >= 0 ->
-        puzzle
+      ! from_small_enough? ->
+        {:error, "'from' is too high"}
+      ! from_big_enough? ->
+        {:error, "'from' is too low"}
+      ! to_small_enough? ->
+        {:error, "'to' is too high"}
+      ! to_big_enough? ->
+        {:error, "'to' is too low"}
+      from == to ->
+        {:error, "'from' and 'to' must be different"}
       true ->
-        IO.puts("Try again! (bad input)")
-        Water.run(puzzle)
+        {:ok}
     end
   end
   
